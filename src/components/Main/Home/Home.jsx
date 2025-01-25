@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'; 
 import { DNA } from 'react-loader-spinner'; 
@@ -12,7 +12,7 @@ const Home = () => {
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/categorias`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/categorias`);
         if (response.data && Array.isArray(response.data.categorias)) {
           setCategorias(response.data.categorias);
         } else {
@@ -20,7 +20,8 @@ const Home = () => {
         }
         setLoading(false);
       } catch (err) {
-        setError('Error al obtener categorías');
+        console.error(err)
+        setError('Error al obtener categoríassssss');
         setLoading(false);
       }
     };

@@ -1,3 +1,4 @@
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faFacebook, faGoogle, faMailchimp, faCreativeCommonsNc } from '@fortawesome/free-brands-svg-icons'; // Importar iconos
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';

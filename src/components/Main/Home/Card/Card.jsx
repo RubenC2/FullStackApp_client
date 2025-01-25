@@ -19,11 +19,11 @@ const Card = ({categName}) => {
   const [mostrarCard, setMostrarCard] = useState(true);
   const [sortedArticulos, setSortedArticulos] = useState([]); // Artículos ordenados
 
-  console.log("cat_id desde la URL:", cat_id);
+
   useEffect(() => {
     const fetchArticulos = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/articulos`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/articulos`);
         const articulosOrdenados = response.data.articulos.sort((a, b) =>
           new Date(b.fecha_publicacion) - new Date(a.fecha_publicacion)  // Aquí los ordeno de más reciente a más antiguo
         );
@@ -47,7 +47,7 @@ const Card = ({categName}) => {
     if (titulo.trim() === '') return;
     const fetchArticulosNombre = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/articulos/titulo/${titulo}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/articulos/titulo/${titulo}`);
         setNombreArt(response.data);
         setLoading(false);
       } catch (err) {
