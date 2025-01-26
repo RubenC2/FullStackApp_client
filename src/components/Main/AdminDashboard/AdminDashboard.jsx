@@ -17,10 +17,14 @@ const ArticuloAdd = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-
-
     if (!catId || !titulo || !autoria || !contenido || !imagenUrl) {
       setMessage("Faltan campos por completar.");
+      return;
+    }
+
+    // Aviso para confirmar publicar
+    const confirmar = window.confirm("¿Quieres publicar este artículo?");
+    if (!confirmar) {
       return;
     }
 
@@ -36,11 +40,11 @@ const ArticuloAdd = () => {
     try {
 
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/articulos`, articuloData);
-      console.log("Artículo guardado:", response.data);
+      console.log("Artículo publicado:", response.data);
 
-      setMessage("Artículo creado exitosamente!");
+      setMessage("¡Artículo creado!");
 
-
+      // Limpiar los campos
       setCatId("");
       setTitulo("");
       setAutoria("");
@@ -49,73 +53,79 @@ const ArticuloAdd = () => {
 
     } catch (error) {
       console.error("Error al guardar el artículo:", error);
+      setMessage("Error al guardar el artículo.");
     }
   };
 
   return (
-    <div>
+    <section>
       <h1 className="create">Crear Artículo</h1>
 
       <form onSubmit={handleSubmit}>
 
-        <div>
-          <label className="create">Categoria ID:</label>
-          <input
-            type="text"
+        <article>
+          <label className="create">Categoria:</label>
+          <select
             value={catId}
             onChange={(e) => setCatId(e.target.value)}
-            placeholder="ID de la categoría"
-          />
-        </div>
+            required
+          >
+            <option value="">Selecciona una categoría</option>
+            <option value="1">Fluyendo en familia</option>
+            <option value="2">Pareja conectada</option>
+            <option value="3">Todo empieza por ti</option>
+          </select>
+        </article>
 
-
-        <div>
+        <article>
           <label className="create">Título:</label>
           <input
             type="text"
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
             placeholder="Título"
+            required
           />
-        </div>
+        </article>
 
-
-        <div>
+        <article>
           <label className="create">Autoría:</label>
           <input
             type="text"
             value={autoria}
             onChange={(e) => setAutoria(e.target.value)}
             placeholder="Autoría"
+            required
           />
-        </div>
+        </article>
 
-
-        <div>
-          <label></label>
+        <article>
+          <label className="create"></label>
           <JoditEditor
             ref={editor}
             value={contenido}
-            onBlur={(newContent) => setContenido(newContent)} 
-            onChange={(newContent) => {}}  
+            onBlur={(newContent) => setContenido(newContent)}
+            onChange={(newContent) => { }}
             config={{ editorCssClass: "my-editor" }} />
+        </article>
 
-        </div>
-
-
-        <div>
+        <article>
           <label className="create">Imagen URL:</label>
           <input
             type="text"
             value={imagenUrl}
             onChange={(e) => setImagenUrl(e.target.value)}
             placeholder="URL de la imagen"
+            required
           />
-        </div>
+        </article>
 
-        <button type="submit">Guardar Artículo</button>
+        <button type="submit">Publicar artículo</button>
       </form>
-    </div>
+
+      {/* Aquí muestro mensaje de éxito/error */}
+      {message && <p>{message}</p>}
+    </section>
   );
 };
 
