@@ -6,7 +6,7 @@ import ArtDetails from './Home/Card/ArtDetails';
 import About from './About/About';
 import Contact from './Contact/Contact';
 import Asesorias from './Asesorias/Asesorias';
-import AdminDashboard from './AdminDashboard/AdminDashboard';
+import ArticuloAdd from './AdminDashboard/AdminDashboard';
 
 const Main = () => {
 
@@ -20,7 +20,7 @@ const Main = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/asesorias" element={<Asesorias />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/dashboard" element={<ArticuloAdd />} />
         <Route path='/*' element={<Navigate to='/' />} />
       </Routes>
 
